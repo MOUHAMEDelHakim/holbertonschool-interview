@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-    Boxes 
-"""
+""" Boxes """
 
 
 def canUnlockAll(boxes):
