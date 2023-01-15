@@ -1,10 +1,11 @@
 #include "sandpiles.h"
 /**
- * print_grid - Print 3x3 grid
- * @grid: array 3*3
- *
- */
-static void print_grid_sum(int grid1[3][3], int grid2[3][3])
+  * print_grid - Print 3x3 grid
+  * @grid: 2D array 3*3
+  *
+  */
+
+static void print_grid(int grid[3][3])
 {
 	int i, j;
 
