@@ -20,6 +20,6 @@ try:
                 STATUS[sp[-2]] += 1
         if i % 10 == 0:
             print("File size: {}".format(FileSize))
-            for key, value in sorted(STATUS.items(:
+            for key, value in sorted(STATUS.items()):
                 if value != 0:
                     print("{}: {}".format(key, value))
