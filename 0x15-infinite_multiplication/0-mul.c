@@ -20,3 +20,16 @@ int checknumber(char *string)
 	return (1);
 }
 
+/**
+ * print_string - Prints a string
+ *
+ * @string: A string
+ */
+void print_string(char *string)
+{
+	int i;
+
+	for (i = 0; string[i]; i++)
+		_putchar(string[i]);
+	_putchar('\n');
+}
