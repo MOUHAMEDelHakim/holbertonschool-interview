@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+from sys import sys
 
 def solve(n):
     if n < 4:
