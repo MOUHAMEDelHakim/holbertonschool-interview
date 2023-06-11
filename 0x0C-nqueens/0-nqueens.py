@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import sys
-from sys import sys
+
 
 def solve(n):
     if n < 4:
@@ -24,7 +24,7 @@ def solve_helper(board, col, solutions):
             row_str = ''.join(['Q' if cell == 1 else '.' for cell in row])
             solution.append(row_str)
         solutions.append(solution)
-        return
+        return False
     
     for row in range(n):
         if is_valid_move(board, row, col):
