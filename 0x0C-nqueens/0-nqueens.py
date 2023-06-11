@@ -1,75 +1,73 @@
 #!/usr/bin/python3
+"""
+The N queens puzzle
+"""
+
+
 import sys
 
+if len(sys.argv) != 2:
+    print("Usage: nqueens N")
+    exit(1)
+try:
+    int(sys.argv[1])
+except Exception:
+    print("N must be a number")
+    exit(1)
+if int(sys.argv[1]) < 4:
+    print("N must be at least 4")
+    exit(1)
+if not isinstance(int(sys.argv[1]), int):
+    print("N must be a number")
+    exit(1)
 
-def solve(n):
-    if n < 4:
-        print("N must be at least 4")
-        sys.exit(1)
+n = int(sys.argv[1])
 
-    # Initialize the board with all zeros
-    board = [[0 for x in range(n)] for y in range(n)]
+
+def is_valid_state(state, n):
+    return len(state) == n
+
+
+def get_candidates(state, n):
+    if not state:
+        return range(n)
+
+    position = len(state)
+    candidates = set(range(n))
+    for row, col in enumerate(state):
+        candidates.discard(col)
+        dist = position - row
+        candidates.discard(col + dist)
+        candidates.discard(col - dist)
+    return candidates
+
+
+def search(state, solutions, n):
+    if is_valid_state(state, n):
+        state_string = state_to_string(state)
+        solutions.append(state_string)
+        return
+
+    for candidate in get_candidates(state, n):
+        state.append(candidate)
+        search(state, solutions, n)
+        state.pop()
+
+
+def solveNQueens(n):
     solutions = []
-    solve_helper(board, 0, solutions)
-    
-    for solution in solutions:
-        print(solution)
+    state = []
+    search(state, solutions, n)
+    return solutions
 
-def solve_helper(board, col, solutions):
-    n = len(board)
-    if col == n:
-        # We have placed all the queens, so add the solution to the list
-        solution = []
-        for row in board:
-            row_str = ''.join(['Q' if cell == 1 else '.' for cell in row])
-            solution.append(row_str)
-        solutions.append(solution)
-        return False
-    
-    for row in range(n):
-        if is_valid_move(board, row, col):
-            # Place the queen and recursively solve for the next column
-            board[row][col] = 1
-            solve_helper(board, col+1, solutions)
-            board[row][col] = 0
 
-def is_valid_move(board, row, col):
-    n = len(board)
-    # Check row
-    for i in range(col):
-        if board[row][i] == 1:
-            return False
-    
-    # Check upper diagonal
-    i = row
-    j = col
-    while i >= 0 and j >= 0:
-        if board[i][j] == 1:
-            return False
-        i -= 1
-        j -= 1
-    
-    # Check lower diagonal
-    i = row
-    j = col
-    while i < n and j >= 0:
-        if board[i][j] == 1:
-            return False
-        i += 1
-        j -= 1
-    
-    # The move is valid
-    return True
+def state_to_string(state):
+    res = []
 
-if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
-    
-    try:
-        n = int(sys.argv[1])
-    except ValueError:
-        print("N must be a number")
-        sys.exit(1)
-    
-    solve(n)
+    for x, y in enumerate(state):
+        res.append([x, y])
+    return res
+
+
+for solution in solveNQueens(n):
+    print(solution)
